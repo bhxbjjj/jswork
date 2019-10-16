@@ -29,4 +29,4 @@ for(let i=1;i<=level;++i){
     }
   str +=  '</table>' 
   //设置div的html文档内容
-document.getFlementById('table').innerHTML = str 
+document.getElementById('table').innerHTML = str 
