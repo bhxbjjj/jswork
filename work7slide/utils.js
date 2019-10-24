@@ -6,7 +6,7 @@ function bubbleSort(str) {
     let sortLog = []
 
     //比较轮数，数组有多少个数字，就比较数组长度-1轮
-    for (let i = 0;i < arr.length - 1; i++) {
+    for (let i = 0;i < arr.length - 1;i++) {
         //从第一个开始比较相邻的两个数组
         for (let j = 0; j< arr.length - i - 1; j++) {
             //把比较前的数组状态和定位指针保存到sortLog中，为保持演示效果，多加两行（可不加，演示速度会变快）

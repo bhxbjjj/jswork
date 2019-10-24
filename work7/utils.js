@@ -3,7 +3,7 @@ function bubbleSort(str){
     //把字符串切分成数组
     let arr = str.split(',')
     //比较轮数，数组有多少个数字，就比较数组长度-1轮
-    for (let i = 0; i < arr.length - 1;j++){
+    for (let i = 0; i < arr.length - 1;i++){
         //从第一个开始比较相邻的两个数值
         for (let j = 0;j < arr.length - i - 1;j++){
             //比较相邻的两个元素，如果左面的大，那么久把大的交换到右边
