@@ -84,13 +84,13 @@ var collegeSelect = document.getElementById('collegeSelect');
 createOption(collegeSelect,collegeSelectArr);
 
 var majorSelect = document.getElementById('majorSelect');
-scollegeSelect.onchange = function(){
+collegeSelect.onchange = function(){
     majorSelect.options.length = 0;
     createOption(majorSelect,majorSelectArr[collegeSelect.value]);
     if (collegeSelect.value>=0){
         majorSelect.onchange();
     }else{
-        collegeSelect.options.length = 0;
+        classSelect.options.length = 0;
     }
 };
 var classSelect = document.getElementById('classSelect');
