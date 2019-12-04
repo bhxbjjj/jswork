@@ -15,7 +15,7 @@ function seckill() {
     if(m == -1){
         m = 59
     } 
-    }
     
     document.getElementById('m').innerHTML = m + '分' ;
     document.getElementById('s').innerHTML = s + '秒' ;
+}
