@@ -56,3 +56,50 @@ maxPage : maxpage
 res. json(result)
 })
 
+app.use(express.static('../uploads'))
+const multer = require('multer');
+var storage = multer.diskStorage({
+  destination: function(req,file,cb) {
+    cb(null,'../uploads')
+  },
+  filename:function(req,file,cb){
+    var fileFormat = (file.originalname).split(".");
+    cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1]);
+  }
+});
+  let upload = multer({storage: storage})
+  app.post('/upload',upload.single('file'),function(req,res,next){
+      var file = req.file;
+      console.log("original file name is "+file.originalname);
+      console.log("file name is "+file.filename);
+      res.json('/'+file.filename);
+  })
+
+
+  var ws = require("nodejs-websocket")
+  let id=0
+
+  var server = ws.createServer(function(conn){
+    id++
+    conn.name = "p"+id
+    broadcast(server,'有新人加入.')
+    conn.on("text",function (str){
+          if(str.slice(0,9)=='nickname|'){
+            conn.name=str.split('|')[1]
+            broadcast(server,conn.name+'上线了。')
+            return
+          }
+          broadcast(server,conn.name+':'+str)
+    })
+    conn.on('connect',function(){
+      conn.name = "name"
+    })
+    conn.on("close",function (code,reason){
+      console.log("Connection closed")
+    })
+}).listen(8081,() => console.log('socket server listening on:8081'))
+  function broadcast(server,msg){
+    server.connections.forEach(function(conn){
+            conn.sendText(msg)
+    })
+  }  
