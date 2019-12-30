@@ -65,7 +65,7 @@ function init(rowCount, colCount, minLandMineCount, maxLandMineCount) {
         this.disabled="disable"
 
         timeHandle = setInterval(function(){
-            timeShow.innerHTML = parseInt((new Data() - jms.beginTime) /1000);
+            timeShow.innerHTML = parseInt((new Date() - jms.beginTime) / 1000);
         },1000);
     };
 }
