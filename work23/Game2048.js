@@ -208,14 +208,14 @@
                 }
                 return false;
             },
-            ranklist:function(url,user,score,view){
+            ranklist: function(url,user,score,view){
                 console.log(url)
                 console.log(user)
                 console.log(score)
                 $.post(url,{name:user,score:score},function(data){
-                    let str = score+'<br>'
+                    let str = score+'<br> '
                     str += data.map((val,index)=>{return index+1+" "+val.name+"-"+val.score}).slice(0,3).join('<br>')
-                    setTimeout(function(){view.over(str)},1000)
+                        setTimeout(function(){view.over(str)}, 1000)
                 })
             }
         };
