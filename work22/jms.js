@@ -1,5 +1,5 @@
 (function () {
-    var JMS = function (id,rowCount,colCount, minLandMineCount, maxLandMineCount) {
+    var JMS = function (id, rowCount, colCount, minLandMineCount, maxLandMineCount) {
         if (!(this instanceof JMS))
             return new JMS(id, rowCount, colCount, minLandMineCount, maxLandMineCount);
         this.doc = document;
@@ -22,33 +22,35 @@
         };
         this.drawMap();
     };
+
     JMS.prototype = {
-        $:function (id) {
+        $: function (id) {
             return this.doc.getElementById(id);
         },
         drawMap: function () {
             var tds = [];
-            if (window.ActiveXObject && parseInt(navigator.userAgent.match(/msie ([\d.]+)/i)[1]) < 8) {
+            if(window.ActiveXObject && parseInt(navigator.userAgent.match(/msie ([\d.]+)/i)[1]) < 8) {
                 var css = '#JMS_main table td{background-color:#888;}',
                     head = this.doc.getElementsByTagName("head")[0],
                     style = this.doc.createElement("style");
                 style.type = "text/css";
                 if (style.styleSheet) {
                     style.styleSheet.cssText = css;
-                } else {
+                }else{
                     style.appendChild(this.doc.createTextNode(css));
                 }
                 head.appendChild(style);
             }
-            for (var i = 0; i <this.rowCount; i++) {
+            for (var i = 0; i < this.rowCount; i++) {
                 tds.push("<tr>");
                 for (var j = 0; j < this.colCount; j++) {
                     tds.push("<td id='m_" + i + "_" + j + "'></td>");
                 }
-                tds.push("</td>");
+                tds.push("</td>")
             }
-            this.setTableInnerHTML(this.table, tds.join(""));
+           this.setTableInnerHTML(this.table, tds.join(""));
         },
+
         init: function () {
             for (var i = 0; i < this.rowCount; i++) {
                 this.arrs[i] = [];
@@ -87,12 +89,12 @@
                     }
                     if (i > 0) {
                         if (this.arrs[i - 1][j] == 9)
-                            this.arrs[i][j]++;
+                         this.arrs[i][j]++;
                     }
                     if (i > 0 && j < this.colCount - 1) {
-                        if (this.arrs[i - 1][j + 1] == 9)
+                        if (this.arrs[i - 1][j + 1] == 9) 
                             this.arrs[i][j]++;
-                    }
+                    }   
                     if (j > 0) {
                         if (this.arrs[i][j - 1] == 9)
                             this.arrs[i][j]++;
@@ -106,15 +108,15 @@
                             this.arrs[i][j]++;
                     }
                     if (i < this.rowCount - 1) {
-                        if (this.arrs[i + 1][j] == 9)
-                            this.arrs[i][j]++;
+                        if ( this.arrs[i + 1][j] == 9)
+                             this.arrs[i][j]++;
                     }
                     if (i < this.rowCount - 1 && j < this.colCount - 1) {
                         if (this.arrs[i + 1][j + 1] == 9)
                             this.arrs[i][j]++;
                     }
                 }
-            }
+            } 
         },
         bindCells: function () {
             var self = this;
@@ -129,14 +131,14 @@
                                 if (className == "flag") {
                                     this.className = "";
                                     self.markLandMineCount--;
-                                } else {
+                                }else{
                                     this.className = "flag";
                                     self.markLandMineCount++;
                                 }
                                 if (self.landMineCallBack) {
                                     self.landMineCallBack(self.landMineCount - self.markLandMineCount);
                                 }
-                            } else if (className != "flag") {
+                            }else if (className != "flag") {
                                 self.openBlock.call(self, this, row, col);
                             }
                         };
@@ -165,7 +167,7 @@
                 if (this.currentSetpCount + this.landMineCount == this.rowCount * this.colCount) {
                     this.success();
                 }
-                obj.onmousedown = null;  
+                obj.onmousedown = null;
                 if (this.arrs[x][y] == 0) {
                     this.showNoLandMine.call(this, x, y);
                 }
@@ -185,10 +187,10 @@
         showAll: function () {
             for (var i = 0; i < this.rowCount; i++) {
                 for (var j = 0; j < this.colCount; j++) {
-                    if (this.arrs[i][j] == 9) {
+                    if (this.arrs[i][j] ==9) {
                         this.$("m_" + i + "_" + j).className = "landMine";
-                    } else {
-                        var ele=this.$("m_" + i + "_" + j);
+                    }else{
+                        var ele = this.$("m_" + i + "_" + j);
                         if (this.arrs[i][j] != 0)
                             ele.innerHTML = this.arrs[i][j];
                         ele.className = "normal";
@@ -265,5 +267,6 @@
             this.calculateNoLandMineCount();
         }
     };
+
     window.JMS = JMS;
 })();
